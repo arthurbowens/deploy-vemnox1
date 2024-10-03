@@ -9,7 +9,7 @@ COPY pom.xml .
 COPY src ./src  
 
 # Build do Maven SEM testes unitarios
-RUN mvn clean package -DSkipTests=true
+RUN mvn clean package -DskipTests
 
 #
 # Package stage
@@ -19,6 +19,7 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 COPY --from=build /app/target/*.jar app.jar
-# ENV PORT=8080
+
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","vemnox1.jar"]
+
+ENTRYPOINT ["java","-jar","/app/app.jar"]
